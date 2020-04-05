@@ -68,18 +68,18 @@ export default {
             }
           },
           indicator: [
-            { name: 'Sales', max: 10000 },
-            { name: 'Administration', max: 20000 },
-            { name: 'Information Techology', max: 20000 },
-            { name: 'Customer Support', max: 20000 },
-            { name: 'Development', max: 20000 },
-            { name: 'Marketing', max: 20000 }
+            { name: 'Liderazgo', max: 20000 },
+            { name: 'Creatividad', max: 20000 },
+            { name: 'Comunicación', max: 20000 },
+            { name: 'Pensamiento Critico', max: 20000 },
+            { name: 'Actitud Positiva', max: 20000 },
+            { name: 'Work Ethic', max: 20000 }
           ]
         },
         legend: {
           left: 'center',
           bottom: '10',
-          data: ['Allocated Budget', 'Expected Spending', 'Actual Spending']
+          data: ['Escenario 1', 'Escenario 2', 'Escenario 3']
         },
         series: [{
           type: 'radar',
@@ -95,16 +95,16 @@ export default {
           },
           data: [
             {
-              value: [5000, 7000, 12000, 11000, 15000, 14000],
-              name: 'Allocated Budget'
+              value: [Math.floor(Math.random() * (10000) + 10000), Math.floor(Math.random() * (10000) + 10000), Math.floor(Math.random() * (10000) + 10000), Math.floor(Math.random() * (10000) + 10000), Math.floor(Math.random() * (10000) + 10000), Math.floor(Math.random() * (10000) + 10000)],
+              name: 'Escenario 1'
             },
             {
-              value: [4000, 9000, 15000, 15000, 13000, 11000],
-              name: 'Expected Spending'
+              value: [Math.floor(Math.random() * (10000) + 10000), Math.floor(Math.random() * (10000) + 10000), Math.floor(Math.random() * (10000) + 10000), Math.floor(Math.random() * (10000) + 10000), Math.floor(Math.random() * (10000) + 10000), Math.floor(Math.random() * (10000) + 10000)],
+              name: 'Escenario 2'
             },
             {
-              value: [5500, 11000, 12000, 15000, 12000, 12000],
-              name: 'Actual Spending'
+              value: [Math.floor(Math.random() * (10000) + 10000), Math.floor(Math.random() * (10000) + 10000), Math.floor(Math.random() * (10000) + 10000), Math.floor(Math.random() * (10000) + 10000), Math.floor(Math.random() * (10000) + 10000), Math.floor(Math.random() * (10000) + 10000)],
+              name: 'Escenario 3'
             }
           ],
           animationDuration: animationDuration

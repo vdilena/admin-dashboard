@@ -52,21 +52,21 @@ export default {
         legend: {
           left: 'center',
           bottom: '10',
-          data: ['Industries', 'Technology', 'Forex', 'Gold', 'Forecasts']
+          data: ['MongoDB', 'Redis', 'Redux', 'NodeJS', 'PHP']
         },
         series: [
           {
-            name: 'WEEKLY WRITE ARTICLES',
+            name: 'Skills',
             type: 'pie',
             roseType: 'radius',
             radius: [15, 95],
             center: ['50%', '38%'],
             data: [
-              { value: 320, name: 'Industries' },
-              { value: 240, name: 'Technology' },
-              { value: 149, name: 'Forex' },
-              { value: 100, name: 'Gold' },
-              { value: 59, name: 'Forecasts' }
+              { value: Math.floor(Math.random() * (50) + 50), name: 'MongoDB' },
+              { value: Math.floor(Math.random() * (50) + 50), name: 'Redis' },
+              { value: Math.floor(Math.random() * (50) + 50), name: 'Redux' },
+              { value: Math.floor(Math.random() * (50) + 50), name: 'NodeJS' },
+              { value: Math.floor(Math.random() * (50) + 50), name: 'PHP' }
             ],
             animationEasing: 'cubicInOut',
             animationDuration: 2600
