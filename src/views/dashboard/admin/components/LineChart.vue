@@ -6,6 +6,7 @@
 import echarts from 'echarts'
 require('echarts/theme/macarons') // echarts theme
 import resize from './mixins/resize'
+import { getPuntajeEmpleado } from '@/mock/empleados'
 
 export default {
   mixins: [resize],
@@ -64,11 +65,28 @@ export default {
     setOptions({ expectedData, actualData } = {}) {
       this.chart.setOption({
         xAxis: {
-          data: ['20-25', '26-30', '31-35', '36-40', '40-45', '46-50', '50-55'],
+          data: Array.from(Array(11).keys()),
           boundaryGap: false,
           axisTick: {
             show: false
-          }
+          },
+          axisPointer: {
+                value: getPuntajeEmpleado(),
+                snap: true,
+                lineStyle: {
+                    color: '#004E52',
+                    opacity: 0.5,
+                    width: 2
+                },
+                label: {
+                    show: true,
+                    backgroundColor: '#004E52'
+                },
+                handle: {
+                    show: true,
+                    color: '#004E52'
+                }
+            },
         },
         grid: {
           left: 10,
@@ -78,6 +96,7 @@ export default {
           containLabel: true
         },
         tooltip: {
+          triggerOn: 'none',
           trigger: 'axis',
           axisPointer: {
             type: 'cross'
@@ -85,12 +104,13 @@ export default {
           padding: [5, 10]
         },
         yAxis: {
+          data: Array.from(Array(1000).keys()),
           axisTick: {
             show: false
           }
         },
         legend: {
-          data: ['expected', 'actual']
+          data: ['expected']
         },
         series: [{
           name: 'expected', itemStyle: {

@@ -2,53 +2,58 @@
   <div class="app-container">
     <!-- Note that row-key is necessary to get a correct row order. -->
     <el-table ref="dragTable" v-loading="listLoading" :data="list" row-key="id" border fit highlight-current-row style="width: 100%">
-      <el-table-column align="center" label="ID" width="65">
+      <el-table-column align="center" label="ID" width="40">
         <template slot-scope="{row}">
           <span>{{ row.id }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column width="180px" align="center" label="Date">
+      <el-table-column width="180px" align="center" label="Nombre">
         <template slot-scope="{row}">
-          <span>{{ row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
+          <span>{{ row.nombre }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column min-width="300px" label="Title">
+      <el-table-column min-width="200px" label="Posicion">
         <template slot-scope="{row}">
-          <span>{{ row.title }}</span>
+          <span>{{ row.posicion }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column width="110px" align="center" label="Author">
+      <el-table-column width="150px" label="Experiencia">
         <template slot-scope="{row}">
-          <span>{{ row.author }}</span>
+          <svg-icon v-for="n in + row.experiencia" :key="n" icon-class="star" class="icon-star" />
         </template>
       </el-table-column>
 
-      <el-table-column width="100px" label="Importance">
+      <el-table-column width="75px" align="center" label="Puntaje">
         <template slot-scope="{row}">
-          <svg-icon v-for="n in + row.importance" :key="n" icon-class="star" class="icon-star" />
+          <span>{{ row.puntaje }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="Readings" width="95">
+      <el-table-column align="center" label="Probab. de cambio" width="95">
         <template slot-scope="{row}">
-          <span>{{ row.pageviews }}</span>
+          <span>{{ row.probabilidadCambio }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column class-name="status-col" label="Status" width="110">
+      <el-table-column label="Actions" align="center" width="200" class-name="small-padding fixed-width">
+        <template slot-scope="{row, $index}">
+          <el-button type="primary" @click="handleUpdate(row)">
+            Ver
+          </el-button>
+          <el-button type="success" @click="handleContactar(row,$index)">
+            Contactar
+          </el-button>
+        </template>
+      </el-table-column>
+
+      <el-table-column class-name="status-col" label="Status" width="140">
         <template slot-scope="{row}">
           <el-tag :type="row.status | statusFilter">
             {{ row.status }}
           </el-tag>
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" label="Drag" width="80">
-        <template slot-scope="{}">
-          <svg-icon class="drag-handler" icon-class="drag" />
         </template>
       </el-table-column>
     </el-table>
@@ -63,6 +68,7 @@
 
 <script>
 import { fetchList } from '@/api/article'
+import { fetchListaEmpleados } from '@/mock/empleados'
 import Sortable from 'sortablejs'
 
 export default {
@@ -70,9 +76,9 @@ export default {
   filters: {
     statusFilter(status) {
       const statusMap = {
-        published: 'success',
-        draft: 'info',
-        deleted: 'danger'
+        Contratado: 'success',
+        Draft: 'info',
+        Rechazado: 'danger'
       }
       return statusMap[status]
     }
@@ -84,7 +90,7 @@ export default {
       listLoading: true,
       listQuery: {
         page: 1,
-        limit: 10
+        limit: 1000
       },
       sortable: null,
       oldList: [],
@@ -97,7 +103,7 @@ export default {
   methods: {
     async getList() {
       this.listLoading = true
-      const { data } = await fetchList(this.listQuery)
+      const { data } = await fetchListaEmpleados(this.listQuery)
       this.list = data.items
       this.total = data.total
       this.listLoading = false
@@ -105,6 +111,13 @@ export default {
       this.newList = this.oldList.slice()
       this.$nextTick(() => {
         this.setSort()
+      })
+    },
+    handleContactar(row, index) {
+      this.$notify({
+        message: `Se pudo contactar a ${row.nombre}`,
+        type: 'success',
+        duration: 2000
       })
     },
     setSort() {
